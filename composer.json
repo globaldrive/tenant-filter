@@ -1,5 +1,5 @@
 {
-    "name": "gd/tenant-filter",
+    "name": "globaldrive/tenant-filter",
     "description": "A Laravel Nova tool.",
     "keywords": [
         "laravel",
