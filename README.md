@@ -11,7 +11,7 @@ public function tools()
         ];
     }
 
-2) пример использования в фильтрах
+2)пример использования в фильтрах
 
 public function default()
     {
