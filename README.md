@@ -10,6 +10,7 @@ public function tools()
             new TenantFilter,
         ];
     }
+
 2) пример использования в фильтрах
 
 public function default()
