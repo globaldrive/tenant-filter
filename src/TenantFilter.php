@@ -43,12 +43,12 @@ class TenantFilter extends Tool
 
     public function getGlobalTenantFilter()
     {
-        $globalTenantFilter = \Session::get('globalTenantFilter');
-        return response()->json($globalTenantFilter);
+        $tenant_id = \Session::get('globalTenantFilter');
+        return response()->json(['tenant_id' => $tenant_id]);
     }
 
     public function setGlobalTenantFilter(TenantFilterStoreRequest $request)
     {
-        \Session::put('globalTenantFilter', $request->input('tenant_id'));
+        \Session::put('globalTenantFilter', $request->validated('tenant_id'));
     }
 }

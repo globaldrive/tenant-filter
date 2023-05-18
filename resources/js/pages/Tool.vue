@@ -31,7 +31,7 @@ export default {
     },
     mounted() {
         this.getTenants();
-        this.globalTenantFilter();
+        this.getSelectedTanant();
     },
     methods: {
         getTenants() {
@@ -39,9 +39,9 @@ export default {
                 this.tenants = response.data;
             });
         },
-        globalTenantFilter() {
+        getSelectedTanant() {
             Nova.request().get('/nova-vendor/tenant-filter/tenants/globalTenantFilter').then(response => {
-                this.selected = response.data;
+                this.selected = response.data.tenant_id;
             });
         },
         onChange(event) {
