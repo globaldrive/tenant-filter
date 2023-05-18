@@ -5,7 +5,7 @@
 
         <Heading class="mb-6">Настройки</Heading>
 
-        <Card class="flex items-center justify-center" style="min-height: 300px">
+        <Card class="flex items-center justify-center h-10">
             <span class="pr-2">
                 Активный фильтр тенанта:
             </span>
@@ -25,27 +25,28 @@
 export default {
     data() {
         return {
-            selected: 0,
+            selected: false,
             tenants: [],
         }
     },
     mounted() {
-        this.getRoutes();
+        this.getTenants();
+        this.globalTenantFilter();
     },
     methods: {
-        getRoutes() {
+        getTenants() {
             Nova.request().get('/nova-vendor/tenant-filter/tenants').then(response => {
-                this.tenants = response.data.tenants;
-                this.selected = response.data.globalTenantFilter;
+                this.tenants = response.data;
+            });
+        },
+        globalTenantFilter() {
+            Nova.request().get('/nova-vendor/tenant-filter/tenants/globalTenantFilter').then(response => {
+                this.selected = response.data;
             });
         },
         onChange(event) {
-            Nova.request().post('/nova-vendor/tenant-filter/set-global-tenant-filter', {globalTenantFilter:event}).then();
+            Nova.request().post('/nova-vendor/tenant-filter/tenants/globalTenantFilter', {tenant_id:event}).then();
         }
     },
 }
 </script>
-
-<style>
-/* Scoped Styles */
-</style>

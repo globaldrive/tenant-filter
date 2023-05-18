@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
+use App\Models\Tenant;
+use Gd\TenantFilter\Requests\TenantFilterStoreRequest;
 
 class TenantFilter extends Tool
 {
@@ -31,5 +33,22 @@ class TenantFilter extends Tool
         return MenuSection::make('Настройки')
             ->path('/tenant-filter')
             ->icon('server');
+    }
+
+    public function getTenants()
+    {
+        $tenants = Tenant::get();
+        return response()->json($tenants);
+    }
+
+    public function getGlobalTenantFilter()
+    {
+        $globalTenantFilter = \Session::get('globalTenantFilter');
+        return response()->json($globalTenantFilter);
+    }
+
+    public function setGlobalTenantFilter(TenantFilterStoreRequest $request)
+    {
+        \Session::put('globalTenantFilter', $request->input('tenant_id'));
     }
 }

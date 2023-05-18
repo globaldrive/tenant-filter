@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Tenant;
+use Gd\TenantFilter\TenantFilter;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +16,9 @@ use App\Models\Tenant;
 |
 */
 
-Route::get('/tenants', function () {
-    $data['tenants'] = Tenant::get();
-    $data['globalTenantFilter'] = Session::get('globalTenantFilter');
-    return response()->json($data);
-});
 
-Route::post('/set-global-tenant-filter', function (Request $request) {
-
-    $request->validate([
-        'globalTenantFilter' => 'required',
-    ]);
-
-    Session::put('globalTenantFilter', $request->input('globalTenantFilter'));
-});
+Route::prefix('tenants')->group(function () {
+    Route::get('/', [TenantFilter::class, 'getTenants']);
+    Route::get('/globalTenantFilter', [TenantFilter::class, 'getGlobalTenantFilter']);
+    Route::post('/globalTenantFilter', [TenantFilter::class, 'setGlobalTenantFilter']);
+})->middleware('auth');
