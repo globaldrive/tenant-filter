@@ -9,13 +9,25 @@
             <span class="pr-2">
                 Активный фильтр тенанта:
             </span>
-            <select v-model="selected" @change="onChange(selected)">
-                <option :value="false">Не выбран</option>
-                <option v-for="tenant in tenants" :value="tenant.id">
-                    {{ tenant.slug }}
-                </option>
-            </select>
-
+            
+            <div class="">
+                <select 
+                  v-model="selected" 
+                  @change="onChange(selected)"
+                  class="block form-control form-select form-select-bordered"
+                >
+                    <option 
+                      :value="false"
+                      disabled
+                    >
+                      Не выбран
+                    </option>
+                    <option v-for="tenant in tenants" :value="tenant.id">
+                        {{ tenant.slug }}
+                    </option>
+                </select>
+                <svg class="flex-shrink-0 pointer-events-none form-select-arrow" xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path class="fill-current" d="M8.292893.292893c.390525-.390524 1.023689-.390524 1.414214 0 .390524.390525.390524 1.023689 0 1.414214l-4 4c-.390525.390524-1.023689.390524-1.414214 0l-4-4c-.390524-.390525-.390524-1.023689 0-1.414214.390525-.390524 1.023689-.390524 1.414214 0L5 3.585786 8.292893.292893z"></path></svg>
+            </div>
         </Card>
     </div>
 </template>
